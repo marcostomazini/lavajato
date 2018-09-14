@@ -2,13 +2,13 @@
 
 module.exports = {
 	app: {
-		title: 'Leilão - Sistema para Leilão',
-		description: 'Leilão',
-		keywords: 'leilao, carro, veiculos'
+		title: 'Lava Jato - Sistema para Lava Jato',
+		description: 'Lava Jato',
+		keywords: 'lava jato, carro, veiculos'
 	},
 	port: process.env.PORT || 3000,
 	templateEngine: 'swig',
-	sessionSecret: 'ARQUITETAWEB2015',
+	sessionSecret: 'ARQUITETAWEBLJ2018',
 	sessionCollection: 'sessions',
 	assets: {
 		lib: {

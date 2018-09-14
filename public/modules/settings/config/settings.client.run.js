@@ -13,7 +13,7 @@
       // ----------------------------------- 
       $rootScope.app = {
         name: 'ArquitetaWeb',
-        description: 'Leilão - Sistema para Leilão',
+        description: 'Lava Jato - Sistema para Lava Jato',
         year: ((new Date()).getFullYear()),
         layout: {
           isFixed: true,

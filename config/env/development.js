@@ -6,7 +6,7 @@ module.exports = {
 	//db: process.env.MONGOLAB_URI_DEV || 'mongodb://lavajato:lava123jato@ds149742.mlab.com:49742/lavajato_dev',
 	db: process.env.MONGOLAB_URI_DEV || 'mongodb://teste:teste123@ds051913.mlab.com:51913/heroku_3m3qfd4s',
 	app: {
-		title: 'Leilão - Development Environment'
+		title: 'Lava Jato - Development Environment'
 	},
 	google: {
 		clientID: process.env.GOOGLE_ID || '64358772177-lqtq513bcp3kuve4rqn91gvqdrrbefel.apps.googleusercontent.com',
