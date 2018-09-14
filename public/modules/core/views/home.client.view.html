@@ -1,0 +1,98 @@
+<section>
+
+  <div class="row">
+     <div class="col-lg-3 col-sm-6">
+        <!-- START widget-->
+        <div class="panel widget bg-yellow">
+           <div class="row row-table">
+              <div class="col-xs-4 text-center bg-yellow-dark pv-lg">
+                 <em class="icon-user fa-3x"></em>
+              </div>
+              <div class="col-xs-8 pv-lg">
+                 <div class="h2 mt0">{{qtdeUsuarios}}</div>
+                 <div class="text-uppercase">Usuários</div>
+              </div>
+           </div>
+        </div>
+     </div>
+    <div class="col-lg-3 col-sm-6">
+        <!-- START widget-->
+        <div class="panel widget bg-primary">
+           <div class="row row-table">
+              <div class="col-xs-4 text-center bg-primary-dark pv-lg">
+                 <em class="icon-user fa-3x"></em>
+              </div>
+              <div class="col-xs-8 pv-lg">
+                 <div class="h2 mt0">{{qtdePagamentos}}</div>
+                 <div class="text-uppercase">Pagamentos</div>
+              </div>
+           </div>
+        </div>
+     </div>
+     <div class="col-lg-3 col-sm-6">
+        <!-- START widget-->
+        <div class="panel widget bg-purple">
+           <div class="row row-table">
+              <div class="col-xs-4 text-center bg-purple-dark pv-lg">
+                 <em class="icon-cloud-upload fa-3x"></em>
+              </div>
+              <div class="col-xs-8 pv-lg">
+                 <div class="h2 mt0">{{qtdeDepositos}}
+                    <small>entrada</small>
+                 </div>
+                 <div class="text-uppercase">Depositos</div>
+              </div>
+           </div>
+        </div>
+     </div>
+      <div class="col-lg-3 col-md-6 col-sm-12">
+        <!-- START widget-->
+        <div class="panel widget bg-green">
+           <div class="row row-table">
+              <div class="col-xs-4 text-center bg-green-dark pv-lg">
+                 <em class="icon-bubbles fa-3x"></em>
+              </div>
+              <div class="col-xs-8 pv-lg">
+                 <div class="h2 mt0">{{qtdeServicos}}</div>
+                 <div class="text-uppercase">Serviços</div>
+              </div>
+           </div>
+        </div>
+     </div>
+     <div class="col-lg-3 col-md-6 col-sm-12">
+        <!-- START widget-->
+        <div class="panel widget bg-gray">
+           <div class="row row-table">
+              <div class="col-xs-4 text-center bg-gray-dark pv-lg">
+                 <em class="icon-bubbles fa-3x"></em>
+              </div>
+              <div class="col-xs-8 pv-lg">
+                 <div class="h2 mt0">{{qtdeVeiculos}}</div>
+                 <div class="text-uppercase">Veiculos</div>
+              </div>
+           </div>
+        </div>
+     </div>
+     <div class="col-lg-3 col-md-6 col-sm-12">
+        <!-- START date widget-->
+        <div class="panel widget">
+           <div class="row row-table">
+              <div class="col-xs-4 text-center bg-green pv-lg">
+                 <!-- See formats: https://docs.angularjs.org/api/ng/filter/date-->
+                 <now format="MMMM" class="text-sm"></now>
+                 <br/>
+                 <now format="d" class="h2 mt0"></now>
+              </div>
+              <div class="col-xs-8 pv-lg">
+                 <now format="EEEE" class="text-uppercase"></now>
+                 <br/>
+                 <now format="h:mm" class="h2 mt0"></now>
+                 <now format="a" class="text-muted text-sm"></now>
+              </div>
+           </div>
+        </div>
+        <!-- END date widget    -->
+     </div>
+  </div>
+
+</section>
