@@ -51,7 +51,7 @@ angular.module('movimentacoes')
 			    case 'MATERIAL':
 			        return '<div class="label label-info">Material</div>';
 			    case 'FUNCIONARIO':
-			        return '<div class="label label-success">Funcionário</div>';
+			        return '<div class="label label-warning">Funcionário</div>';
 			    case 'EQUIPAMENTO':
 			        return '<div class="label label-success">Equipamento</div>';
 			    case 'OUTROS':

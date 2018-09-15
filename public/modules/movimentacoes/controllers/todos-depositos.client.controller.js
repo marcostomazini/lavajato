@@ -47,13 +47,13 @@ angular.module('movimentacoes')
 		var tipoLancamentoHtml = function(data, type, full, meta) {
 			switch(data.tipoLancamento) {
 			    case 'DINHEIRO':
-			        return '<div class="label label-warning">Dinheiro</div>';
+			        return '<div class="label label-success">Dinheiro</div>';
 			    case 'DEBITO':
 			        return '<div class="label label-info">Debito</div>';
 			    case 'CREDITO':
-			        return '<div class="label label-success">Crédito</div>';			    
+			        return '<div class="label label-warning">Crédito</div>';			    
 			    case 'OUTROS':
-			        return '<div class="label label-warning">Outros</div>';
+			        return '<div class="label label-danger">Outros</div>';
 			    default:
 			        return '<div class="label label-danger">NONE</div>';
 			}			
