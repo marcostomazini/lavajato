@@ -42,6 +42,13 @@ exports.update = function(req, res) {
 							if (!userRetorno) return next(new Error('Failed to load user '));
 							user = _.extend(user, userRetorno);
 
+							var socketio = req.app.get('socketio');
+							socketio.emit('message-toaster', {				
+								type: 'info',
+								title: 'Usuario',
+								message: 'usuario: ' + user.email + ' - status: ' + user.ativo
+							});
+
 							res.json(user);
 						});
 					}

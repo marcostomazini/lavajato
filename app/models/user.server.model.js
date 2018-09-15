@@ -125,15 +125,17 @@ UserSchema.methods.hashPassword = function(password) {
 UserSchema.methods.authenticate = function(password) {
 	/*console.log('pass:' +password);
 	console.log('hash pass:' +this.hashPassword(password));
+	console.log('pass base:' + this.password);
 	console.log(crypto.pbkdf2Sync(password, this.salt, 10000, 64).toString('base64'));
+	console.log('token:' + this.token);*/
 
-	console.log('token:' + this.token);
-*/
-	if (this.salt && password) {
-		return crypto.pbkdf2Sync(password, this.salt, 10000, 64).toString('base64');
+	return this.password === this.hashPassword(password);
+
+	/*if (this.salt && password) {		
+		return this.hashPassword(password) === crypto.pbkdf2Sync(password, this.salt, 10000, 64).toString('base64');
 	} else {
 		return this.password === this.hashPassword(password);
-	}
+	}*/
 };
 
 /**
