@@ -29,7 +29,8 @@ This command does a few things:
 After the install process is over, you'll be able to run your application using Grunt, just run grunt default task:
 
 ```
-$ grunt
+npm install grunt // install local grunt sem o save
+$ grunt build
 ```
 
 ## Liberando usuarios do sistema

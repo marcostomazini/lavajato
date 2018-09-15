@@ -43,6 +43,22 @@ angular.module('movimentacoes')
 			}
 		}
 
+		// enum: ['DINHEIRO', 'DEBITO', 'CREDITO', 'OUTROS'],
+		var tipoLancamentoHtml = function(data, type, full, meta) {
+			switch(data.tipoLancamento) {
+			    case 'DINHEIRO':
+			        return '<div class="label label-warning">Dinheiro</div>';
+			    case 'DEBITO':
+			        return '<div class="label label-info">Debito</div>';
+			    case 'CREDITO':
+			        return '<div class="label label-success">Crédito</div>';			    
+			    case 'OUTROS':
+			        return '<div class="label label-warning">Outros</div>';
+			    default:
+			        return '<div class="label label-danger">NONE</div>';
+			}			
+		}
+
 		this.dtOptions = DTOptionsBuilder
 			.newOptions()			
 	    	.withOption('ajax', {
@@ -71,11 +87,13 @@ angular.module('movimentacoes')
 
 	    this.dtColumns = [
         	DTColumnBuilder.newColumn('descricao').withTitle('Descrição'),
-        	DTColumnBuilder.newColumn('valor').withTitle('Valor Depositado'),
-        	DTColumnBuilder.newColumn('dataDeposito').withTitle('Data do Deposito')
+        	DTColumnBuilder.newColumn('valor').withTitle('Valor Lançamento'),
+        	DTColumnBuilder.newColumn('dataDeposito').withTitle('Data do Lançamento')
         		.renderWith(function(data, type, full) {
     				return $filter('date')(data, 'dd/MM/yyyy');
   				}),
+  			DTColumnBuilder.newColumn(null).withTitle('Tipo Pgto')
+        		.renderWith(tipoLancamentoHtml),
 			DTColumnBuilder.newColumn(null).withTitle('Status')
         		.renderWith(statusHtml)
   			];

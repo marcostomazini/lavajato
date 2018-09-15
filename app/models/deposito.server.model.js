@@ -20,6 +20,11 @@ var DepositoSchema = new Schema({
 		trim: true,
 		default: ''
 	},
+	tipoLancamento: {
+        type: String,
+        enum: ['DINHEIRO', 'DEBITO', 'CREDITO', 'OUTROS'],
+        default: 'DINHEIRO'
+    },
 	dataDeposito: {
 		type: String,
 		default: Date.now

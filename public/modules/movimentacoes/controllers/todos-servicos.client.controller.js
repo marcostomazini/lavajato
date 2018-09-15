@@ -58,6 +58,24 @@ angular.module('movimentacoes')
 			}			
 		}
 
+		//'Fila', 'Atendimento', 'Finalizado', 'Pago', 'Outros'
+		var situacaoHtml = function(data, type, full, meta) {
+			switch(data.situacao) {
+			    case 'Fila':
+			        return '<div class="label label-warning">Fila</div>';
+			    case 'Atendimento':
+			        return '<div class="label label-info">Atendimento</div>';
+			    case 'Finalizado':
+			        return '<div class="label label-success">Finalizado</div>';
+			    case 'Pago':
+			        return '<div class="label label-success">Pago</div>';
+			    case 'Outros':
+			        return '<div class="label label-warning">Outros</div>';
+			    default:
+			        return '<div class="label label-danger">NONE</div>';
+			}			
+		}
+
 		var visualizarHtml = function(data, type, full, meta) {			
 			var item = full;
 			return "<div class=\"row\">"+
@@ -71,7 +89,7 @@ angular.module('movimentacoes')
 					"		</div>"+
 					"	</div>"+
 					"</div>";
-		}		
+		}
 
 		this.dtOptions = DTOptionsBuilder
 			.newOptions()			
@@ -124,8 +142,10 @@ angular.module('movimentacoes')
         		.renderWith(function(data, type, full) {
     				return $filter('date')(data, 'dd/MM/yyyy HH:mm');
   				}),
+  			DTColumnBuilder.newColumn(null).withTitle('Situação')
+        		.renderWith(situacaoHtml),
         	DTColumnBuilder.newColumn(null).withTitle('Tipo Pgto')
-        		.renderWith(statusHtml)
+        		.renderWith(statusHtml)        		
     	];
 
 		$scope.urlBase = '/#!/servicos';

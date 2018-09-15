@@ -7,6 +7,6 @@ angular.module('movimentacoes').run(['Menus',
 		Menus.addMenuItem('sidebar', 'Movimentações', 'pesquisa-servicos', 'dropdown', '/pesquisa-servicos(/.*)?', false, null, 20, 'icon-lock');
 		Menus.addSubMenuItem('sidebar', 'pesquisa-servicos', 'Serviços', 'pesquisa-servicos');
 		Menus.addSubMenuItem('sidebar', 'pesquisa-servicos', 'Pagamentos', 'pesquisa-pagamentos');
-		Menus.addSubMenuItem('sidebar', 'pesquisa-servicos', 'Depositos', 'pesquisa-depositos');
+		Menus.addSubMenuItem('sidebar', 'pesquisa-servicos', 'Lançamentos', 'pesquisa-depositos');
 	}
 ]);

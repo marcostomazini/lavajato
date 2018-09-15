@@ -749,7 +749,7 @@ angular.module('movimentacoes').run(['Menus',
 		Menus.addMenuItem('sidebar', 'Movimentações', 'pesquisa-servicos', 'dropdown', '/pesquisa-servicos(/.*)?', false, null, 20, 'icon-lock');
 		Menus.addSubMenuItem('sidebar', 'pesquisa-servicos', 'Serviços', 'pesquisa-servicos');
 		Menus.addSubMenuItem('sidebar', 'pesquisa-servicos', 'Pagamentos', 'pesquisa-pagamentos');
-		Menus.addSubMenuItem('sidebar', 'pesquisa-servicos', 'Depositos', 'pesquisa-depositos');
+		Menus.addSubMenuItem('sidebar', 'pesquisa-servicos', 'Lançamentos', 'pesquisa-depositos');
 	}
 ]);
 'use strict';
@@ -827,6 +827,22 @@ angular.module('movimentacoes')
 			}
 		}
 
+		// enum: ['DINHEIRO', 'DEBITO', 'CREDITO', 'OUTROS'],
+		var tipoLancamentoHtml = function(data, type, full, meta) {
+			switch(data.tipoLancamento) {
+			    case 'DINHEIRO':
+			        return '<div class="label label-warning">Dinheiro</div>';
+			    case 'DEBITO':
+			        return '<div class="label label-info">Debito</div>';
+			    case 'CREDITO':
+			        return '<div class="label label-success">Crédito</div>';			    
+			    case 'OUTROS':
+			        return '<div class="label label-warning">Outros</div>';
+			    default:
+			        return '<div class="label label-danger">NONE</div>';
+			}			
+		}
+
 		this.dtOptions = DTOptionsBuilder
 			.newOptions()			
 	    	.withOption('ajax', {
@@ -855,11 +871,13 @@ angular.module('movimentacoes')
 
 	    this.dtColumns = [
         	DTColumnBuilder.newColumn('descricao').withTitle('Descrição'),
-        	DTColumnBuilder.newColumn('valor').withTitle('Valor Depositado'),
-        	DTColumnBuilder.newColumn('dataDeposito').withTitle('Data do Deposito')
+        	DTColumnBuilder.newColumn('valor').withTitle('Valor Lançamento'),
+        	DTColumnBuilder.newColumn('dataDeposito').withTitle('Data do Lançamento')
         		.renderWith(function(data, type, full) {
     				return $filter('date')(data, 'dd/MM/yyyy');
   				}),
+  			DTColumnBuilder.newColumn(null).withTitle('Tipo Pgto')
+        		.renderWith(tipoLancamentoHtml),
 			DTColumnBuilder.newColumn(null).withTitle('Status')
         		.renderWith(statusHtml)
   			];
@@ -933,6 +951,24 @@ angular.module('movimentacoes')
 			}
 		}
 
+		//enum: ['CONTA', 'MATERIAL', 'FUNCIONARIO', 'EQUIPAMENTO', 'OUTROS'],
+		var tipoPagamentoHtml = function(data, type, full, meta) {
+			switch(data.tipoPagamento) {
+			    case 'CONTA':
+			        return '<div class="label label-warning">Conta</div>';
+			    case 'MATERIAL':
+			        return '<div class="label label-info">Material</div>';
+			    case 'FUNCIONARIO':
+			        return '<div class="label label-success">Funcionário</div>';
+			    case 'EQUIPAMENTO':
+			        return '<div class="label label-success">Equipamento</div>';
+			    case 'OUTROS':
+			        return '<div class="label label-warning">Outros</div>';
+			    default:
+			        return '<div class="label label-danger">NONE</div>';
+			}			
+		}
+
 		this.dtOptions = DTOptionsBuilder
 			.newOptions()			
 	    	.withOption('ajax', {
@@ -967,6 +1003,8 @@ angular.module('movimentacoes')
         		.renderWith(function(data, type, full) {
     				return $filter('date')(data, 'dd/MM/yyyy');
   				}),
+  			DTColumnBuilder.newColumn(null).withTitle('Tipo Pgto')
+        		.renderWith(tipoPagamentoHtml),
   			DTColumnBuilder.newColumn(null).withTitle('Status')
         		.renderWith(statusHtml)
   			];
@@ -1055,6 +1093,24 @@ angular.module('movimentacoes')
 			}			
 		}
 
+		//'Fila', 'Atendimento', 'Finalizado', 'Pago', 'Outros'
+		var situacaoHtml = function(data, type, full, meta) {
+			switch(data.situacao) {
+			    case 'Fila':
+			        return '<div class="label label-warning">Fila</div>';
+			    case 'Atendimento':
+			        return '<div class="label label-info">Atendimento</div>';
+			    case 'Finalizado':
+			        return '<div class="label label-success">Finalizado</div>';
+			    case 'Pago':
+			        return '<div class="label label-success">Pago</div>';
+			    case 'Outros':
+			        return '<div class="label label-warning">Outros</div>';
+			    default:
+			        return '<div class="label label-danger">NONE</div>';
+			}			
+		}
+
 		var visualizarHtml = function(data, type, full, meta) {			
 			var item = full;
 			return "<div class=\"row\">"+
@@ -1068,7 +1124,7 @@ angular.module('movimentacoes')
 					"		</div>"+
 					"	</div>"+
 					"</div>";
-		}		
+		}
 
 		this.dtOptions = DTOptionsBuilder
 			.newOptions()			
@@ -1121,8 +1177,10 @@ angular.module('movimentacoes')
         		.renderWith(function(data, type, full) {
     				return $filter('date')(data, 'dd/MM/yyyy HH:mm');
   				}),
+  			DTColumnBuilder.newColumn(null).withTitle('Situação')
+        		.renderWith(situacaoHtml),
         	DTColumnBuilder.newColumn(null).withTitle('Tipo Pgto')
-        		.renderWith(statusHtml)
+        		.renderWith(statusHtml)        		
     	];
 
 		$scope.urlBase = '/#!/servicos';

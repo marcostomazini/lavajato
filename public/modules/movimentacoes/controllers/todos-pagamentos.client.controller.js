@@ -43,6 +43,24 @@ angular.module('movimentacoes')
 			}
 		}
 
+		//enum: ['CONTA', 'MATERIAL', 'FUNCIONARIO', 'EQUIPAMENTO', 'OUTROS'],
+		var tipoPagamentoHtml = function(data, type, full, meta) {
+			switch(data.tipoPagamento) {
+			    case 'CONTA':
+			        return '<div class="label label-warning">Conta</div>';
+			    case 'MATERIAL':
+			        return '<div class="label label-info">Material</div>';
+			    case 'FUNCIONARIO':
+			        return '<div class="label label-success">Funcionário</div>';
+			    case 'EQUIPAMENTO':
+			        return '<div class="label label-success">Equipamento</div>';
+			    case 'OUTROS':
+			        return '<div class="label label-warning">Outros</div>';
+			    default:
+			        return '<div class="label label-danger">NONE</div>';
+			}			
+		}
+
 		this.dtOptions = DTOptionsBuilder
 			.newOptions()			
 	    	.withOption('ajax', {
@@ -77,6 +95,8 @@ angular.module('movimentacoes')
         		.renderWith(function(data, type, full) {
     				return $filter('date')(data, 'dd/MM/yyyy');
   				}),
+  			DTColumnBuilder.newColumn(null).withTitle('Tipo Pgto')
+        		.renderWith(tipoPagamentoHtml),
   			DTColumnBuilder.newColumn(null).withTitle('Status')
         		.renderWith(statusHtml)
   			];
