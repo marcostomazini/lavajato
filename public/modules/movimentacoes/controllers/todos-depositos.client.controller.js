@@ -92,7 +92,7 @@ angular.module('movimentacoes')
         		.renderWith(function(data, type, full) {
     				return $filter('date')(data, 'dd/MM/yyyy');
   				}),
-  			DTColumnBuilder.newColumn(null).withTitle('Tipo Pgto')
+  			DTColumnBuilder.newColumn(null).withTitle('Tipo Lançamento')
         		.renderWith(tipoLancamentoHtml),
 			DTColumnBuilder.newColumn(null).withTitle('Status')
         		.renderWith(statusHtml)
