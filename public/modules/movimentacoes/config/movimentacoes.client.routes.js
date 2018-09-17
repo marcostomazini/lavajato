@@ -25,6 +25,12 @@ angular.module('movimentacoes').config(['$stateProvider', 'RouteHelpersProvider'
 			title: 'Listar Pagamentos',
 			templateUrl: 'modules/movimentacoes/views/todos-pagamentos.client.view.html',
 			resolve: helper.resolveFor('datatables', 'xeditable')
+		}).
+
+		state('app.relatorios', {
+			url: '/relatorios',
+			title: 'Relatórios',
+			templateUrl: 'modules/movimentacoes/views/relatorios.client.view.html'
 		});
 	}
 ]);

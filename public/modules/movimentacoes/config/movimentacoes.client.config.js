@@ -8,5 +8,6 @@ angular.module('movimentacoes').run(['Menus',
 		Menus.addSubMenuItem('sidebar', 'pesquisa-servicos', 'Serviços', 'pesquisa-servicos');
 		Menus.addSubMenuItem('sidebar', 'pesquisa-servicos', 'Pagamentos', 'pesquisa-pagamentos');
 		Menus.addSubMenuItem('sidebar', 'pesquisa-servicos', 'Lançamentos', 'pesquisa-depositos');
+		Menus.addSubMenuItem('sidebar', 'pesquisa-servicos', 'Relatórios', 'relatorios');
 	}
 ]);
