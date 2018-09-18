@@ -828,9 +828,7 @@ angular.module('movimentacoes')
 
 		$scope.relatorios = Relatorios.relatorios.query();
 
-		$scope.tratarServicos = function() {
-			
-
+		$scope.agruparPorDataTipoPagamento = function() {
 			var listaDataFormatada = _.map($scope.relatorios, function(item) {
 				var unixDate = parseInt(item.dataHoraEntrada);
     			var dataEntrada = moment(unixDate).format('DD/MM');
@@ -849,83 +847,46 @@ angular.module('movimentacoes')
 			  });
 			});
 		
-			$scope.servicosRelatorios = agrupados;
+			$scope.servicosRelatorios = agrupados;	
+		}
 
-			$scope.totalServicosRelatorios = _.reduce($scope.relatorios, function(sum, n) {
-			  return sum + parseFloat(n.valorRecebido);
+		$scope.totais = function() {
+			$scope.totalServicosRelatorios = [];
+
+			var agrupadosTipoPagamento = _.groupBy($scope.relatorios, function(b) { 
+				return b.tipoPagamento;
+			});
+
+			_.forEach(agrupadosTipoPagamento, function(value, key) {
+			  var totalPorTipoPagamento = _.reduce(value, function(sum, n) {
+		  			return sum + parseFloat(n.valorRecebido);
+				}, 0);
+
+			  $scope.totalServicosRelatorios.push(
+			  	{
+			  		tipo: key,
+			  		valorTotal: totalPorTipoPagamento
+			  	}
+			  );
+			});
+
+			var totalGeral = _.reduce($scope.relatorios, function(sum, n) {
+				return sum + parseFloat(n.valorRecebido);
 			}, 0);
+
+			$scope.totalServicosRelatorios.push(
+				{
+					tipo: "Geral",
+					valorTotal: totalGeral
+				}
+			);
+		};
+
+		$scope.gerarRelatorioServico = function() {
+			this.agruparPorDataTipoPagamento();
+
+			this.totais();			
 		};	
-
-		$scope.servicos = {
-							  "17/09": {
-							    "Dinheiro": [
-							      {
-							        "_id": "5ba00263445bd813003d3415",
-							        "__v": 0,
-							        "dataHoraEntrada": "17/09",
-							        "tipoPagamento": "Dinheiro",
-							        "valorRecebido": "50.00",
-							        "placa": "AAA-1111",
-							        "tipoServico": "Lavagem"
-							      }
-							      ]
-							  }
-							};
-
-		$scope.servicos2 = [
-						        {
-						            "dataHora": "1537044824738",
-						            "totalDia": "150",
-						            "servicos": [
-						                {
-						                	"placa": "EEE",
-						                	"servico": "lavagem",
-						                    "tipoPagamento": "Dinheiro",
-						                    "valorRecebido": "5.00"
-						                },
-						                {
-						                	"placa": "FFFF",
-						                	"servico": "motor",
-						                    "tipoPagamento": "Debito",
-						                    "valorRecebido": "15.00"
-						                },
-						                {
-						                	"placa": "WWWW",
-						                	"servico": "chuva",
-						                    "tipoPagamento": "Dinheiro",
-						                    "valorRecebido": "25.00"
-						                }
-						            ]
-						        },
-						        {
-						            "dataHora": "1537044824738",
-						            "totalDia": "130",
-						            "servicos": [
-						                {
-						                	"placa": "AAAA",
-						                	"servico": "lavagem",
-						                    "tipoPagamento": "Credito",
-						                    "valorRecebido": "15.00"
-						                },
-						                {
-						                	"placa": "BBBB",
-						                	"servico": "ducha",
-						                    "tipoPagamento": "Credito",
-						                    "valorRecebido": "25.00"
-						                },
-						                {
-						                	"placa": "CCCCC",
-						                	"servico": "polimento",
-						                    "tipoPagamento": "Dinheiro",
-						                    "valorRecebido": "10.00"
-						                }
-						            ]
-						        }
-						    ];
-		
-		$scope.teste = function() {
-			alert(1);
-		};		
 	}
 ]);
 'use strict';
