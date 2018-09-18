@@ -850,6 +850,10 @@ angular.module('movimentacoes')
 			});
 		
 			$scope.servicosRelatorios = agrupados;
+
+			$scope.totalServicosRelatorios = _.reduce($scope.relatorios, function(sum, n) {
+			  return sum + parseFloat(n.valorRecebido);
+			}, 0);
 		};	
 
 		$scope.servicos = {

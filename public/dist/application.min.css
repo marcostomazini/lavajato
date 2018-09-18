@@ -1174,7 +1174,7 @@ hr {
   cursor: pointer;
 }
 .relatorio {
-  margin-bottom: 0px;
+  margin-bottom: 0px !important;
   margin-top: 20px;
 }
 h1,
