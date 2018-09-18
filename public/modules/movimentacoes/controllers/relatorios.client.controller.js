@@ -8,7 +8,7 @@ angular.module('movimentacoes')
 	'$stateParams', 
 	'$location', 
 	'Authentication', 
-	'Servicos', 
+	'Relatorios', 
 	'SweetAlert',
 	'$modal',
 	'$filter',
@@ -18,13 +18,14 @@ angular.module('movimentacoes')
 		$stateParams, 
 		$location, 
 		Authentication, 
-		Servicos, 
+		Relatorios, 
 		SweetAlert,
 		$modal,
 		$filter) {		
 
 		$scope.authentication = Authentication;
 		$scope.pesquisa = {};
+		$scope.servicosRelatorios = {};
 
 
 		$scope.urlBase = '/#!/servicos';
@@ -32,7 +33,53 @@ angular.module('movimentacoes')
 		// Context
 		$scope.authentication = Authentication;
 
-		$scope.servicos = [
+		$scope.relatorios = Relatorios.relatorios.query();
+
+		$scope.tratarServicos = function() {
+			
+
+			var listaDataFormatada = _.map($scope.relatorios, function(item) {
+				var unixDate = parseInt(item.dataHoraEntrada);
+    			var dataEntrada = moment(unixDate).format('DD/MM');
+				item.dataHoraEntrada = dataEntrada;
+
+				return item;
+			});
+
+			var agrupados = _.groupBy(listaDataFormatada, function(b) { 
+				return b.dataHoraEntrada;
+			});
+
+			_.forEach(agrupados, function(value, key) {
+			  agrupados[key] = _.groupBy(agrupados[key], function(item) {
+			    return item.tipoPagamento;
+			  });
+			});
+		
+			$scope.servicosRelatorios = agrupados;
+
+			$scope.totalServicosRelatorios = _.reduce($scope.relatorios, function(sum, n) {
+			  return sum + parseFloat(n.valorRecebido);
+			}, 0);
+		};	
+
+		$scope.servicos = {
+							  "17/09": {
+							    "Dinheiro": [
+							      {
+							        "_id": "5ba00263445bd813003d3415",
+							        "__v": 0,
+							        "dataHoraEntrada": "17/09",
+							        "tipoPagamento": "Dinheiro",
+							        "valorRecebido": "50.00",
+							        "placa": "AAA-1111",
+							        "tipoServico": "Lavagem"
+							      }
+							      ]
+							  }
+							};
+
+		$scope.servicos2 = [
 						        {
 						            "dataHora": "1537044824738",
 						            "totalDia": "150",

@@ -30,7 +30,8 @@ angular.module('movimentacoes').config(['$stateProvider', 'RouteHelpersProvider'
 		state('app.relatorios', {
 			url: '/relatorios',
 			title: 'Relatórios',
-			templateUrl: 'modules/movimentacoes/views/relatorios.client.view.html'
+			templateUrl: 'modules/movimentacoes/views/relatorios.client.view.html',
+			resolve: helper.resolveFor('moment')
 		});
 	}
 ]);

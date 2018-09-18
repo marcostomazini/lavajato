@@ -28,7 +28,6 @@ module.exports = function(app) {
         	session: false
     	}), servicos.delete);
 
-
 	app.route('/api/servicos')
 		.get(users.requiresLogin, servicos.listAll)
 		.post(users.requiresLogin, servicos.create);    	

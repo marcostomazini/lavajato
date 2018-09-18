@@ -29,6 +29,7 @@
             {name: 'oitozero.ngSweetAlert',     files: ['/lib/sweetalert/dist/sweetalert.css',
                                                         '/lib/sweetalert/dist/sweetalert.min.js',
                                                         '/lib/angular-sweetalert/SweetAlert.js']},
+            {name: 'moment',                    files: ['/lib/moment/moment.js']},                                                        
           ]
         })
         ;

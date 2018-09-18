@@ -94,43 +94,54 @@
                </accordion-group>               
             </accordion>
 
+            <!--<div ng-repeat="(id, val) in servicosRelatorios">
+               {{id}}
+               <div ng-repeat="(key, value) in val">
+                  {{key}}
+                  <div ng-repeat="servico in value">
+                     {{servico}}
+                  </div>   
+               </div>   
+            </div>-->
+
             <div class="panel">
-               <div class="table-responsive">
-                  <table class="table table-hover table-bordered table-striped" ng-repeat="servico in servicos">
-                     <thead>
-                        <tr>
-                           <th colspan="4">{{servico.dataHora}}</th>
-                        </tr>
-                     </thead>
-                     <thead>
-                        <tr>
-                           <th>Placa</th>
-                           <th>Serviço</th>
-                           <th>Tipo Pgto</th>
-                           <th>Valor</th>                           
-                        </tr>
-                     </thead>
-                     <tbody>
-                        <!--<tr ng-repeat="servico in servicos">-->
-                        <tr ng-repeat="detalhe in servico.servicos">
-                           <td>{{detalhe.placa}}</td>
-                           <td>{{detalhe.servico}}</td>
-                           <td>{{detalhe.tipoPagamento}}</td>
-                           <td>{{detalhe.valorRecebido}}</td>          
-                        </tr>                           
-                     </tbody>                    
-                     <tfoot>
-                        <tr>
-                           <td colspan="3">Total</td>
-                           <td>{{servico.totalDia}}</td>
-                         </tr>
-                     </tfoot>
-                  </table>
+               <div class="row" ng-repeat="(id, val) in servicosRelatorios">
+                  <div class="col-md-12">
+                     <p class="lead bb relatorio">{{id}}</p>
+                     
+                     <div class="col-md-12" ng-repeat="(key, value) in val">
+                        <p class="lead bb">{{key}}</p>
+
+                        <form class="form-horizontal p-20" ng-repeat="servico in value">
+                           <div class="col-sm-6">
+                              {{servico.placa}}
+                           </div>
+                           <div class="col-sm-4">
+                              {{servico.tipoServico}}
+                           </div>
+                           <div class="col-sm-2">
+                              <strong>{{servico.valorRecebido | currency}}</strong>
+                           </div>                        
+                        </form>                     
+                        <strong></strong>
+
+                     </div>
+                  </div>
                </div>
             </div>
 
+            <div class="col-md-4">
+               Total Geral: {{totalServicosRelatorios | currency: 'BRL': true}}
+            </div>
+            <div class="col-md-4">
+               Total Dinheiro: {{totalServicosRelatorios | currency}}
+            </div>
+            <div class="col-md-4">
+               Total Credito: {{totalServicosRelatorios | currency}}
+            </div>
+
 				<div class="modal-footer">
-               <button ng-click="teste()" class="btn btn-primary">Gerar</button>
+               <button ng-click="tratarServicos()" class="btn btn-primary">Gerar</button>
             </div>
 
 			</div>
