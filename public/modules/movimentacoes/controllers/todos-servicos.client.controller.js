@@ -210,8 +210,8 @@ angular.module('movimentacoes')
 
 		$scope.whatsapp = function(celular) {
 
-			let celularWhatsapp = celular.replace(/\D/g, '');
-			let url = "https://api.whatsapp.com/send?phone=55" + celularWhatsapp + "&text=Box45 Promoções";
+			var celularWhatsapp = celular.replace(/\D/g, '');
+			var url = "https://api.whatsapp.com/send?phone=55" + celularWhatsapp + "&text=Box45 Promoções";
 			$window.open(url, '_blank');
 		};
 

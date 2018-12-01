@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-	db: 'mongodb://localhost/leilao-dev',
+	db: 'mongodb://localhost/leilao-dev',	
 	app: {
 		title: 'Lava Jato - Development Environment'
 	},
