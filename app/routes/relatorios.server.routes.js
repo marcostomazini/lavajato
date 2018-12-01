@@ -9,7 +9,13 @@ var users = require('../../app/controllers/users.server.controller'),
 
 module.exports = function(app) {
 
-    app.route('/api/relatorios')
-		.get(users.requiresLogin, servicos.relatorios);
+    app.route('/api/relatorios/servicos')
+		.get(users.requiresLogin, servicos.servicos);
+	app.route('/api/relatorios/pagamentos')
+		.get(users.requiresLogin, servicos.pagamentos);
+	app.route('/api/relatorios/lancamentos')
+		.get(users.requiresLogin, servicos.lancamentos);
+	app.route('/api/relatorios/fechamento')
+		.get(users.requiresLogin, servicos.fechamento);
 
 };

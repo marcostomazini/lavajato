@@ -14,6 +14,7 @@ angular.module('movimentacoes')
 	'SweetAlert',
 	'$modal',
 	'$filter',
+	'$window', 
 	function($scope, 
 		$compile,
 		$interval,
@@ -25,7 +26,8 @@ angular.module('movimentacoes')
 		DTColumnBuilder,
 		SweetAlert,
 		$modal,
-		$filter) {		
+		$filter,
+		$window) {		
 
 		$scope.authentication = Authentication;
 		$scope.pesquisa = {};
@@ -91,6 +93,23 @@ angular.module('movimentacoes')
 					"</div>";
 		}
 
+		var celularHtml = function(data, type, full, meta) {	
+			var item = full;
+			return "<div class=\"row\">"+ 
+					"	<div class=\"text-center\">"+ 
+					"		<div class=\"text-center\""+
+					"			popover='" + item.celular + "'" +
+					"			popover-trigger=\"mouseenter\">" + item.celular +
+					"			<a ng-click=\"whatsapp('"+item.celular+"')\">"+
+					"				<i class=\"fa fa-whatsapp fa-2x\"></i>"+
+					"			</a>"+
+					"		</div>"+
+					"	</div>"+
+					"</div>";
+		}
+
+		//https://api.whatsapp.com/send?phone=5544999159296&text=Olá, tudo bem? Vi seu perfil no http://fatalmodel.com/188319%0aConfirmando então%0a*Cachê:* R$150 (1 hora)%0a*Pagamento:* Dinheiro.%0a*Em:* Local próprio, Motéis.%0a%0aVou ser bem objetivo 🙂, minha dúvida é:
+
 		this.dtOptions = DTOptionsBuilder
 			.newOptions()			
 	    	.withOption('ajax', {
@@ -132,7 +151,10 @@ angular.module('movimentacoes')
 	    		.notSortable()
         		.renderWith(visualizarHtml),
         	DTColumnBuilder.newColumn('nomeCliente').withTitle('Cliente'),
-        	DTColumnBuilder.newColumn('celular').withTitle('Celular'),
+        	DTColumnBuilder.newColumn(null).withTitle('Celular')
+        		.renderWith(celularHtml)
+        		.notSortable(),
+        	//DTColumnBuilder.newColumn('celular').withTitle('Celular'),
         	DTColumnBuilder.newColumn('tipoServico').withTitle('Serviço'),
         	DTColumnBuilder.newColumn('valorRecebido').withTitle('Vlr Recebido')
         		.renderWith(function(money, type, full) {
@@ -143,9 +165,11 @@ angular.module('movimentacoes')
     				return $filter('date')(data, 'dd/MM/yyyy HH:mm');
   				}),
   			DTColumnBuilder.newColumn(null).withTitle('Situação')
-        		.renderWith(situacaoHtml),
+        		.renderWith(situacaoHtml)
+        		.notSortable(),
         	DTColumnBuilder.newColumn(null).withTitle('Tipo Pgto')
-        		.renderWith(statusHtml)        		
+        		.renderWith(statusHtml)
+        		.notSortable()
     	];
 
 		$scope.urlBase = '/#!/servicos';
@@ -182,6 +206,13 @@ angular.module('movimentacoes')
 		
 		$scope.pesquisar = function() {
 			$('#servicos-grid').DataTable().ajax.reload();
+		};
+
+		$scope.whatsapp = function(celular) {
+
+			let celularWhatsapp = celular.replace(/\D/g, '');
+			let url = "https://api.whatsapp.com/send?phone=55" + celularWhatsapp + "&text=Box45 Promoções";
+			$window.open(url, '_blank');
 		};
 
 		$scope.visualizar = function(id) {

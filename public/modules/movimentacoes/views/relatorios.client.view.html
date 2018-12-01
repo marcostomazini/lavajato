@@ -21,75 +21,37 @@
 
                         <div class="row">
 
-                           <div class="col-md-6">
-
-                               <fieldset>
-                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">
-                                       Placa
-                                    </label>
-                                    <div class="col-sm-10">
-                                       <input type="text" 
-                                          name="placa" 
-                                          required 
-                                          ng-model="pesquisa.placa" 
-                                          class="form-control">                           
-                                    </div>
-                                 </div>
-                              </fieldset>
-
-                           </div>
-
                            <div class="col-md-6">                           
                              
                               <fieldset>
                                  <div class="form-group">
                                     <label class="col-sm-2 control-label">
-                                        De:
+                                        Mês:
                                     </label>
                                     
                                     <div class="col-sm-5">
                                        <p class="input-group">
-                                          <input type="text" name="dataDe" 
-                                             datepicker-popup="dd/MM/yyyy" 
-                                             ng-model="pesquisa.dataDe" is-open="openedDe" 
+                                          <input type="text" name="dataMes" 
+                                             datepicker-popup="MM/yyyy" 
+                                             ng-model="pesquisa.mes" is-open="openedMes" 
                                              datepicker-options="dateOptions" 
                                              close-text="Fechar"
                                           class="form-control ng-dirty ng-touched ng-invalid" />
                                           <span class="input-group-btn">
-                                             <button type="button" ng-click="openDe($event)" class="btn btn-default">
+                                             <button type="button" ng-click="openMes($event)" class="btn btn-default">
                                                 <em class="fa fa-calendar"></em>
                                              </button>
                                           </span>
                                        </p>
                                     </div>
-                                    
-                                    <div class="col-sm-5">
-                                       <p class="input-group">
-                                          <input type="text" name="dataAte" 
-                                             datepicker-popup="dd/MM/yyyy" 
-                                             ng-model="pesquisa.dataAte" is-open="openedAte" 
-                                             datepicker-options="dateOptions" 
-                                             close-text="Fechar"
-                                          class="form-control ng-dirty ng-touched ng-invalid" />
-                                          <span class="input-group-btn">
-                                             <button type="button" ng-click="openAte($event)" class="btn btn-default">
-                                                <em class="fa fa-calendar"></em>
-                                             </button>
-                                          </span>
-                                       </p>
-                                    </div>
+                                                             
                                  </div>
                               </fieldset>                              
 
                            </div>
                         </div>
 
-                     </div>
-
-                  <div class="modal-footer">
-                     <button ng-click="pesquisar()" class="btn btn-primary">Pesquisar</button>
-                  </div>
+                     </div>                 
 
                </accordion-group>               
             </accordion>
@@ -104,41 +66,180 @@
                </div>   
             </div>-->
 
-            <div class="panel">
-               <div class="row" ng-repeat="(id, val) in servicosRelatorios">
-                  <div class="col-md-12">
-                     <p class="lead bb relatorio">{{id}}</p>
-                     
-                     <div class="col-md-12" ng-repeat="(key, value) in val">
-                        <p class="lead bb">{{key}}</p>
+             <div ng-if="relatorioAtivo == 'servico'">
+               <div class="panel">
+                  <div class="row" ng-repeat="(id, val) in servicosRelatorios">
+                     <div class="col-md-12">
+                        <p class="lead bb relatorio">{{id}}</p>
+                        
+                        <div class="col-md-12" ng-repeat="(key, value) in val">
+                           <p class="lead bb">{{key}}</p>
 
-                        <form class="form-horizontal p-20" ng-repeat="servico in value">
-                           <div class="col-sm-6">
-                              {{servico.placa}}
-                           </div>
-                           <div class="col-sm-4">
-                              {{servico.tipoServico}}
-                           </div>
-                           <div class="col-sm-2">
-                              <strong>{{servico.valorRecebido | currency}}</strong>
-                           </div>                        
-                        </form>                     
-                        <strong></strong>
+                           <form class="form-horizontal p-20" ng-repeat="servico in value">
+                              <div class="col-sm-6">
+                                 {{servico.placa}}
+                              </div>
+                              <div class="col-sm-4">
+                                 {{servico.tipoServico}}
+                              </div>
+                              <div class="col-sm-2">
+                                 <strong>{{servico.valorRecebido | currency}}</strong>
+                              </div>                        
+                           </form>                     
+                           <strong></strong>
 
+                        </div>
                      </div>
                   </div>
                </div>
-            </div>
-         
-            <div class="col-md-3" ng-repeat="total in totalServicosRelatorios">
-               Total em {{total.tipo}}: {{total.valorTotal | currency }}
+            
+               <div class="col-md-3" ng-repeat="total in totalServicosRelatorios">
+                  Total em {{total.tipo}}: {{total.valorTotal | currency }}
+               </div>
+            </div>               
+
+            <div ng-if="relatorioAtivo == 'pagamento'">
+               <div class="panel">
+                  <div class="row" ng-repeat="(id, val) in pagamentosRelatorios">
+                     <div class="col-md-12">
+                        <p class="lead bb relatorio">{{id}}</p>
+                        
+                        <div class="col-md-12" ng-repeat="(key, value) in val">
+                           <p class="lead bb">{{key}}</p>
+
+                           <form class="form-horizontal p-20" ng-repeat="pagamento in value">
+                              <div class="col-sm-6">
+                                 {{pagamento.descricao}}
+                              </div>
+                              <div class="col-sm-2">
+                                 <strong>{{pagamento.valor | currency}}</strong>
+                              </div>                        
+                           </form>                     
+                           <strong></strong>
+
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            
+               <div class="col-md-3" ng-repeat="total in totalPagamentosRelatorios">
+                  Total em {{total.tipo}}: {{total.valorTotal | currency }}
+               </div>
             </div>
 
-				<div class="modal-footer">
-               <button ng-click="gerarRelatorioServico()" class="btn btn-primary">Gerar</button>
+            <div ng-if="relatorioAtivo == 'lancamento'">
+               <div class="panel">
+                  <div class="row" ng-repeat="(id, val) in lancamentosRelatorios">
+                     <div class="col-md-12">
+                        <p class="lead bb relatorio">{{id}}</p>
+                        
+                        <div class="col-md-12" ng-repeat="(key, value) in val">
+                           <p class="lead bb">{{key}}</p>
+
+                           <form class="form-horizontal p-20" ng-repeat="lancamento in value">
+                              <div class="col-sm-6">
+                                 {{lancamento.descricao}}
+                              </div>
+                              <div class="col-sm-2">
+                                 <strong>{{lancamento.valor | currency}}</strong>
+                              </div>                        
+                           </form>                     
+                           <strong></strong>
+
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            
+               <div class="col-md-3" ng-repeat="total in totalLancamentosRelatorios">
+                  Total em {{total.tipo}}: {{total.valorTotal | currency }}
+               </div>
             </div>
+
+            <div ng-if="relatorioAtivo == 'fechamento'">                                     
+
+               <div class="row">
+                  <div class="col-md-4">
+                  </div>
+                  <div class="col-md-3">
+                     <div class="panel b">
+                        <div class="panel-heading bb">
+                           <h4 class="panel-title">Fechamento</h4>
+                        </div>
+                        <div class="panel-body bt">
+                           <h4 class="b0">Fechamento {{resumoFechamento.periodo}}</h4>
+                        </div>
+                        <table class="table">
+                           <tbody>
+                              <tr>
+                                 <td>Serviços</td>
+                                 <td>
+                                    <div class="text-right text-bold">{{resumoFechamento.servico | currency }}</div>
+                                 </td>
+                              </tr>
+                              <tr>
+                                 <td>Pagamentos</td>
+                                 <td>
+                                    <div class="text-right text-bold">{{resumoFechamento.pagamento | currency }}</div>
+                                 </td>
+                              </tr>
+                              <tr>
+                                 <td>Lançamentos</td>
+                                 <td>
+                                    <div class="text-right text-bold">{{resumoFechamento.lancamento | currency }}</div>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                        <div class="panel-body">
+                           <div class="clearfix">
+                              <div class="pull-right text-right">
+                                 <div class="text-bold">{{resumoFechamento.lucro | currency }}</div>
+                                 <div class="text-sm">REAL</div>
+                              </div>
+                              <div class="pull-left text-bold text-dark">LUCRO</div>
+                           </div>
+                        </div>
+                        <div class="panel-body" ng-if="resumoFechamento.lucroBateu == false">
+                           <p>
+                              <button class="btn btn-danger btn-block" type="button">VALORES DIVERGENTES</button>
+                           </p>
+                           <small class="text-muted">* lucro não bateu com valores de serviços X pagamentos X lançamentos, favor revisar!! valor divergente: {{resumoFechamento.diferenca | currency }}</small>
+                        </div>                     
+                     </div>
+                  </div>
+                  <div class="col-md-4">
+                  </div>
+               </div>
+
+               <div class="row">
+               </div>
+
+               <div class="row">
+                  <div class="col-md-3" ng-repeat="total in totalServicosRelatorios">
+                     Serviços em {{total.tipo}}: {{total.valorTotal | currency }}
+                  </div>
+
+                  <div class="col-md-3" ng-repeat="total in totalPagamentosRelatorios">
+                     Pagamentos em {{total.tipo}}: {{total.valorTotal | currency }}
+                  </div>
+
+                  <div class="col-md-3" ng-repeat="total in totalLancamentosRelatorios">
+                     Lançamentos em {{total.tipo}}: {{total.valorTotal | currency }}
+                  </div>
+               </div>
+
+            </div>   
 
 			</div>
+
+        <div class="modal-footer" style="text-align: center;">
+            <button ng-click="gerarRelatorioServico()" class="btn btn-primary">Serviços</button>
+            <button ng-click="gerarRelatorioPagamento()" class="btn btn-primary">Pagamentos</button>
+            <button ng-click="gerarRelatorioLancamento()" class="btn btn-primary">Lançamentos</button>
+            <button ng-click="gerarRelatorioFechamento()" class="btn btn-success">Fechamento</button>
+         </div>
+
          </div>
       </div>
    </div>

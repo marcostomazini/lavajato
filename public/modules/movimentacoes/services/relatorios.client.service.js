@@ -4,10 +4,16 @@
 angular.module('movimentacoes').factory('Relatorios', ['$resource',
 	function($resource) {
 
-		var Relatorios = $resource('api/relatorios');
+		var Servicos = $resource('api/relatorios/servicos');
+		var Pagamentos = $resource('api/relatorios/pagamentos');
+		var Lancamentos = $resource('api/relatorios/lancamentos');
+		var Fechamento = $resource('api/relatorios/fechamento');
 			
     	return {
-    		relatorios: Relatorios
+    		servicos: Servicos,
+    		pagamentos: Pagamentos,
+    		lancamentos: Lancamentos,
+    		fechamento: Fechamento
     	};
 	}
 ]);
