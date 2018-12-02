@@ -29,7 +29,7 @@ var ServicoSchema = new Schema({
 	placa: {
 		type: String,
 		trim: true,
-		default: ''
+		default: 'AAA-0000'
 	},
 	valorRecebido: {
 		type: String,
