@@ -105,7 +105,8 @@ angular.module('movimentacoes')
 			$scope.relatorioAtivo = 'servico';
 			var _this = this;
 			Relatorios.servicos.query({data: $scope.pesquisa.mes}, function success(data){
-				$scope.relatorios = data;
+				debugger
+				$scope.relatorios = _.where(data, { situacao: 'Pago'});
 				_this.agruparPorDataTipoPagamento();
 				_this.totais();
 				}, function error(error){
@@ -278,7 +279,7 @@ angular.module('movimentacoes')
 			var _this = this;
 
 			Relatorios.servicos.query({data: $scope.pesquisa.mes}, function success(data1){
-					$scope.relatorios = data1;
+					$scope.relatorios = _.where(data1, { situacao: 'Pago'});
 					_this.totais();
 					Relatorios.pagamentos.query({data: $scope.pesquisa.mes}, function success(data2){
 							_this.totaisPagamentos(data2);

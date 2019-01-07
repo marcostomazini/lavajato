@@ -32,7 +32,7 @@ exports.servicos = function(req, res) {
 						$gte: dataPesquisaInicio
 					}
 				 }, 
-			'-updated -created -situacao -observacao -celular -nomeCliente -dataHoraSaida')
+			'-updated -created -observacao -celular -nomeCliente -dataHoraSaida')
 		.sort('-created')		
 		.exec(function(err, servicos) {
 		if (err) {
