@@ -11,6 +11,19 @@ var mongoose = require('mongoose'),
 	ObjectId = mongoose.Types.ObjectId,	
 	_ = require('lodash');
 
+exports.todosServicos = function(req, res) {	
+	Servico.find({}, '-updated -created -observacao -dataHoraSaida -tipoPagamento -tipoServico -valorRecebido -situacao')
+		.sort('-created')		
+		.exec(function(err, servicos) {
+		if (err) {
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else {			
+			res.json(servicos);
+		}
+	});	
+};
 
 exports.servicos = function(req, res) {	
 	var dataAtual = new Date(req.query.data);

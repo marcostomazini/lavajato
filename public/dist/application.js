@@ -822,6 +822,7 @@ angular.module('movimentacoes')
 		$scope.pagamentosRelatorios = {};
 		$scope.lancamentosRelatorios = {};
 		$scope.resumoFechamento = {};
+		$scope.contatos = {};
 
 		$scope.relatorioAtivo = {};
 		$scope.pesquisa.mes = new Date();
@@ -1092,6 +1093,31 @@ angular.module('movimentacoes')
 		};	
 
 		//endregion Fechamento
+
+		//#region Contatos
+		$scope.gerarRelatorioContatos = function() {
+			$scope.relatorioAtivo = 'contatos';
+			var _this = this;
+
+			Relatorios.todosServicos.query({}, function success(data){
+					$scope.contatos = 
+					{ 
+						quantidade: _.size(data),
+						contatos: [],
+						contatosUnicos: _.uniq(_.pluck(data, 'celular'))
+					};
+
+					_.each(data, function(value, name){
+						$scope.contatos.contatos.push({
+					        cliente: value.nomeCliente,
+					        celular: value.celular
+					    });
+					});
+					
+				}, function error(error){
+			});			
+		};	
+		//endregion Contatos
 	}
 ]);
 'use strict';
@@ -1647,12 +1673,14 @@ angular.module('movimentacoes').factory('Servicos', ['$resource',
 angular.module('movimentacoes').factory('Relatorios', ['$resource',
 	function($resource) {
 
+		var TodosServicos = $resource('api/relatorios/todosServicos');
 		var Servicos = $resource('api/relatorios/servicos');
 		var Pagamentos = $resource('api/relatorios/pagamentos');
 		var Lancamentos = $resource('api/relatorios/lancamentos');
 		var Fechamento = $resource('api/relatorios/fechamento');
 			
     	return {
+    		todosServicos: TodosServicos,
     		servicos: Servicos,
     		pagamentos: Pagamentos,
     		lancamentos: Lancamentos,

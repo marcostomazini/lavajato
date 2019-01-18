@@ -229,7 +229,42 @@
                   </div>
                </div>
 
-            </div>   
+            </div>
+
+            <div ng-if="relatorioAtivo == 'contatos'">
+               <div class="panel">
+
+                  <div class="row" ng-repeat="contato in contatos.contatos">
+                     <div class="col-md-12">
+                        <form class="form-horizontal p-20">
+                              <div class="col-sm-6">
+                                 {{contato.cliente}}
+                              </div>
+                              <div class="col-sm-4">
+                                 {{contato.celular}}
+                              </div>
+                           </form>                     
+                           <strong></strong>
+                     </div>
+                  </div>
+
+                  <div class="row" ng-repeat="celular in contatos.contatosUnicos">
+                     <div class="col-md-12">
+                        <form class="form-horizontal p-20">
+                              <div class="col-sm-6">
+                                 {{celular}}
+                              </div>
+                           </form>                     
+                           <strong></strong>
+                     </div>
+                  </div>
+
+               </div>
+            
+               <div class="col-md-3">
+                  Total de contatos {{contatos.quantidade}}
+               </div>
+            </div>
 
 			</div>
 
@@ -237,7 +272,8 @@
             <button ng-click="gerarRelatorioServico()" class="btn btn-primary">Serviços</button>
             <button ng-click="gerarRelatorioPagamento()" class="btn btn-primary">Pagamentos</button>
             <button ng-click="gerarRelatorioLancamento()" class="btn btn-primary">Lançamentos</button>
-            <button ng-click="gerarRelatorioFechamento()" class="btn btn-success">Fechamento</button>
+            <button ng-click="gerarRelatorioContatos()" class="btn btn-primary">Contatos</button>
+            <button ng-click="gerarRelatorioLancamento()" class="btn btn-success">Fechamento</button>            
          </div>
 
          </div>

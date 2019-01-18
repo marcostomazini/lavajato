@@ -29,6 +29,7 @@ angular.module('movimentacoes')
 		$scope.pagamentosRelatorios = {};
 		$scope.lancamentosRelatorios = {};
 		$scope.resumoFechamento = {};
+		$scope.contatos = {};
 
 		$scope.relatorioAtivo = {};
 		$scope.pesquisa.mes = new Date();
@@ -299,5 +300,30 @@ angular.module('movimentacoes')
 		};	
 
 		//endregion Fechamento
+
+		//#region Contatos
+		$scope.gerarRelatorioContatos = function() {
+			$scope.relatorioAtivo = 'contatos';
+			var _this = this;
+
+			Relatorios.todosServicos.query({}, function success(data){
+					$scope.contatos = 
+					{ 
+						quantidade: _.size(data),
+						contatos: [],
+						contatosUnicos: _.uniq(_.pluck(data, 'celular'))
+					};
+
+					_.each(data, function(value, name){
+						$scope.contatos.contatos.push({
+					        cliente: value.nomeCliente,
+					        celular: value.celular
+					    });
+					});
+					
+				}, function error(error){
+			});			
+		};	
+		//endregion Contatos
 	}
 ]);

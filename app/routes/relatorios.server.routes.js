@@ -9,6 +9,8 @@ var users = require('../../app/controllers/users.server.controller'),
 
 module.exports = function(app) {
 
+	app.route('/api/relatorios/todosServicos')
+		.get(users.requiresLogin, servicos.todosServicos);
     app.route('/api/relatorios/servicos')
 		.get(users.requiresLogin, servicos.servicos);
 	app.route('/api/relatorios/pagamentos')
